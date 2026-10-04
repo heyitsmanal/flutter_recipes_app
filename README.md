@@ -2,7 +2,6 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-blue?logo=flutter)
 ![Firebase](https://img.shields.io/badge/Firebase-Firestore-orange?logo=firebase)
-![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey)
 
 A modern, intuitive **recipe management application** built with **Flutter**, **Firebase**, and **Riverpod**, designed to make it easy to browse, create, edit, and share cooking recipes.  
@@ -95,3 +94,15 @@ The app includes features such as user accounts, favorites, search & filters, ra
 
 
 
+
+
+## 🔐 Service configuration
+Cloudinary values are supplied at build/run time instead of being committed in source:
+
+```bash
+flutter run \\
+  --dart-define=CLOUDINARY_CLOUD_NAME=your-cloud-name \\
+  --dart-define=CLOUDINARY_UPLOAD_PRESET=your-upload-preset
+```
+
+Firebase client configuration is part of the mobile client, so access must be protected with restrictive Firebase Security Rules and appropriate API restrictions in the Firebase/Google Cloud console. The Cloudinary unsigned upload preset should also be restricted to the transformations, formats, and limits the app actually needs.
