@@ -10,8 +10,8 @@ class ImageService {
   final ImagePicker _picker;
 
   // 🔹 Your Cloudinary config
-  static const String cloudName = "dqbaatkzq";      // ✅ your value
-  static const String uploadPreset = "flutter_uploads"; // ✅ your preset name
+  static const String cloudName = String.fromEnvironment("CLOUDINARY_CLOUD_NAME");
+  static const String uploadPreset = String.fromEnvironment("CLOUDINARY_UPLOAD_PRESET");
 
   ImageService({ImagePicker? picker}) : _picker = picker ?? ImagePicker();
 
@@ -29,6 +29,11 @@ class ImageService {
 
   /// Uploads an image file to Cloudinary and returns the public URL.
   Future<String> uploadRecipeImage(File file) async {
+    if (cloudName.isEmpty || uploadPreset.isEmpty) {
+      throw StateError(
+        "Cloudinary configuration is missing. Provide CLOUDINARY_CLOUD_NAME and CLOUDINARY_UPLOAD_PRESET using --dart-define.",
+      );
+    }
     final mimeType = lookupMimeType(file.path)?.split('/') ?? ['image', 'jpeg'];
 
     final url = Uri.parse(
